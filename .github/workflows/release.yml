@@ -125,14 +125,14 @@ jobs:
       sarif-sha256: ${{ steps.hashes.outputs.sarif }}
     steps:
       - name: Checkout released SHA
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           ref: ${{ needs.resolve.outputs.sha }}
           fetch-depth: 0
           persist-credentials: false
 
       - name: Provision toolchain (mise)
-        uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d  # v4.2.0
+        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c  # v4.3.0
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -245,7 +245,7 @@ jobs:
           path: artifacts/
 
       - name: Attest build provenance for every released artifact
-        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373  # v4.1.1
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8  # v4.2.2
         with:
           subject-path: |
             artifacts/opencodehub-pack.tar.gz
@@ -343,7 +343,7 @@ jobs:
 
       - name: Upload SARIF to code scanning
         if: hashFiles('artifacts/och-scan.sarif') != ''
-        uses: github/codeql-action/upload-sarif@54f647b7e1bb85c95cddabcd46b0c578ec92bc1a  # v4
+        uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938  # v4
         with:
           sarif_file: artifacts/och-scan.sarif
           category: opencodehub-release
@@ -388,11 +388,11 @@ jobs:
       contents: read
       id-token: write       # OIDC token for npm trusted publishing AND provenance
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           ref: ${{ needs.resolve.outputs.sha }}
           persist-credentials: false
-      - uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d  # v4.2.0
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c  # v4.3.0
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter '!@opencodehub/docs' -r build
       # Idempotency guard: a stuck/retried release (e.g. the automated chain
