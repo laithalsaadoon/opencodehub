@@ -52,7 +52,7 @@
     "fast-xml-parser": "5.9.3",
     "graphology": "0.26.0",
     "graphology-dag": "0.4.1",
-    "piscina": "5.2.0",
+    "piscina": "5.3.2",
     "spdx-correct": "^3.2.0",
     "web-tree-sitter": "0.26.10",
     "write-file-atomic": "8.0.0"
